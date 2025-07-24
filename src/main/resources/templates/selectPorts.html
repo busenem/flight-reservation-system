@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Uçuş Ara</title>
+</head>
+<body>
+    <h2>Uçuş Bilgilerini Gir</h2>
+
+    <form th:action="@{/selectPorts}" th:object="${flightSearch}" method="post">
+        <label>Kalkış Havalimanı:</label>
+        <select th:field="*{departurePort}">
+            <option th:each="port : ${ports}" th:value="${port}" th:text="${port}"></option>
+        </select>
+        <br><br>
+
+        <label>Varış Havalimanı:</label>
+        <select th:field="*{arrivalPort}">
+            <option th:each="port : ${ports}" th:value="${port}" th:text="${port}"></option>
+        </select>
+        <br><br>
+
+        <label>Tarih:</label>
+        <input type="date" th:field="*{departureDate}" />
+        <br><br>
+
+        <label>Uçuş Tipi:</label>
+        <input type="radio" name="flightType" value="Economy" th:field="*{flightType}" /> Economy
+        <input type="radio" name="flightType" value="Business" th:field="*{flightType}" /> Business
+        <br><br>
+
+        <label>Yolcu Sayısı:</label>
+        <select th:field="*{passengerCount}">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Ara</button>
+    </form>
+</body>
+</html>

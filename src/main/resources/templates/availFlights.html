@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Uygun Uçuşlar</title>
+</head>
+<body>
+    <h2>Uygun Uçuşlar</h2>
+
+    <div th:if="${flights.isEmpty()}">
+        <p style="color: red;">Uygun uçuş bulunamadı.</p>
+    </div>
+
+    <table border="1" th:if="${!flights.isEmpty()}">
+        <thead>
+            <tr>
+                <th>Uçuş No</th>
+                <th>Kalkış</th>
+                <th>Varış</th>
+                <th>Tarih</th>
+                <th>Kabin</th>
+                <th>Fiyat</th>
+                <th>Seç</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="flight : ${flights}">
+                <td th:text="${flight.flightNo}"></td>
+                <td th:text="${flight.departurePort}"></td>
+                <td th:text="${flight.arrivalPort}"></td>
+                <td th:text="${flight.departureDate}"></td>
+                <td th:text="${flight.cabin}"></td>
+                <td th:text="${flight.price} + ' TL'"></td>
+                <td>
+                    <form th:action="@{/passengerInfo}" method="post">
+                        <input type="hidden" name="flightId" th:value="${flight.id}" />
+                        <input type="hidden" name="passengerCount" th:value="${passengerCount}" />
+                        <button type="submit">Continue</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
