@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Yolcu Bilgileri</title>
+</head>
+<body>
+    <h2>Yolcu Bilgilerini Gir</h2>
+
+    <form th:action="@{/savePassengers}" th:object="${form}" method="post">
+        <input type="hidden" th:field="*{flightId}" />
+
+        <div th:each="passenger, iterStat : *{passengers}">
+            <h4>Yolcu [[${iterStat.index + 1}]]</h4>
+
+            <label>Ad:</label>
+            <input type="text" th:field="*{passengers[__${iterStat.index}__].name}" required />
+            <br/>
+
+            <label>Soyad:</label>
+            <input type="text" th:field="*{passengers[__${iterStat.index}__].surname}" required />
+            <br/><br/>
+        </div>
+
+        <button type="submit">Devam Et</button>
+    </form>
+</body>
+</html>
